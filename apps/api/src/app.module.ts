@@ -31,6 +31,7 @@ import { ReferralsModule } from "./referrals/referrals.module";
 import { MissionsModule } from "./missions/missions.module";
 import { RewardsModule } from "./rewards/rewards.module";
 import { SupportModule } from "./support/support.module";
+import { AdminModule } from "./admin/admin.module";
 import { HealthModule } from "./health/health.module";
 
 @Module({
@@ -96,6 +97,7 @@ import { HealthModule } from "./health/health.module";
     RewardsModule,
     NotificationsModule,
     SupportModule,
+    AdminModule,
     HealthModule,
   ],
   providers: [

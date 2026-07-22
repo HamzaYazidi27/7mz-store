@@ -21,6 +21,8 @@ import {
   verifyTelegramInitData,
   type ParsedInitData,
 } from "./telegram-init-data";
+import { verifyTelegramLogin, type TelegramLoginData } from "./telegram-login";
+import { STAFF_ROLES } from "@7mz/shared";
 import type { AuthUser, JwtAccessPayload, JwtRefreshPayload } from "./types";
 
 export interface RequestMeta {
@@ -136,6 +138,40 @@ export class AuthService {
     this.events.emit("user.login", { userId: user.id });
 
     return { user: toUserDto(user), tokens, isNewUser };
+  }
+
+  // ------------------------------------------------------- admin login
+
+  /**
+   * Admin panel login via Telegram Login Widget. Only users who already hold a
+   * staff role may obtain an admin session — customers are rejected even with
+   * valid Telegram data.
+   */
+  async loginAdmin(data: TelegramLoginData, meta: RequestMeta): Promise<AuthResponse> {
+    const devBypass = this.config.get<boolean>("auth.devBypass");
+    const botToken = this.config.get<string | null>("telegram.botToken");
+
+    const ok =
+      (devBypass && data.hash === "dev-mode-unsigned") ||
+      (botToken ? verifyTelegramLogin(data, botToken) : false);
+    if (!ok) throw new UnauthorizedException("Telegram login verification failed");
+
+    const user = await this.prisma.user.findUnique({ where: { telegramId: BigInt(data.id) } });
+    if (!user) throw new ForbiddenException("No account found for this Telegram user");
+    if (!STAFF_ROLES.includes(user.role)) {
+      throw new ForbiddenException("This account does not have admin access");
+    }
+    if (user.status !== "ACTIVE") throw new ForbiddenException("Account unavailable");
+
+    await this.prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
+    const tokens = await this.issueSession(user, "admin-web", meta);
+    await this.audit.log({
+      action: "auth.admin_login",
+      actorId: user.id,
+      ip: meta.ip,
+      userAgent: meta.userAgent,
+    });
+    return { user: toUserDto(user), tokens, isNewUser: false };
   }
 
   // --------------------------------------------------------------- refresh

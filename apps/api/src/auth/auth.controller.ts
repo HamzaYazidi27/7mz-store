@@ -26,6 +26,18 @@ export class AuthController {
   }
 
   @Public()
+  @Post("admin/telegram-login")
+  @HttpCode(HttpStatus.OK)
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  @ApiOperation({ summary: "Admin panel login via Telegram Login Widget (staff only)" })
+  loginAdmin(@Body() body: Record<string, unknown>, @Req() req: Request) {
+    return this.auth.loginAdmin(body as never, {
+      ip: req.ip,
+      userAgent: req.headers["user-agent"],
+    });
+  }
+
+  @Public()
   @Post("refresh")
   @HttpCode(HttpStatus.OK)
   @Throttle({ default: { limit: 30, ttl: 60_000 } })
