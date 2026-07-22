@@ -1,0 +1,12 @@
+{
+  "name": "@7mz/devstack",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local development stack — boots PostgreSQL (embedded binaries) and Redis for development without Docker",
+  "scripts": {
+    "start": "node start.mjs"
+  },
+  "dependencies": {
+    "embedded-postgres": "18.4.0-beta.17"
+  }
+}

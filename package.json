@@ -1,0 +1,39 @@
+{
+  "name": "7mz-store",
+  "version": "1.0.0",
+  "private": true,
+  "description": "7MZ Store — premium digital goods storefront as a Telegram Mini App (Next.js + NestJS + PostgreSQL)",
+  "packageManager": "pnpm@10.34.3",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\"",
+    "db:generate": "pnpm --filter @7mz/api db:generate",
+    "db:migrate": "pnpm --filter @7mz/api db:migrate",
+    "db:deploy": "pnpm --filter @7mz/api db:deploy",
+    "db:seed": "pnpm --filter @7mz/api db:seed",
+    "db:studio": "pnpm --filter @7mz/api db:studio"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1",
+    "prettier": "^3.5.3",
+    "sharp": "^0.35.3",
+    "turbo": "^2.5.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/engines",
+      "prisma",
+      "@prisma/client",
+      "esbuild",
+      "sharp",
+      "embedded-postgres",
+      "@embedded-postgres/linux-x64"
+    ]
+  }
+}

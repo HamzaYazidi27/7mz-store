@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import "@7mz/ui/styles/theme.css";
+
+/* Scan the shared UI package for Tailwind class usage. */
+@source "../../../../packages/ui/src";
+
+/* ---------------------------------------------------------------------------
+   Mini App canvas — ambient brand glow behind everything.
+--------------------------------------------------------------------------- */
+
+body {
+  background-image:
+    radial-gradient(60% 36% at 50% -8%, rgb(255 212 59 / 0.07), transparent 70%),
+    radial-gradient(50% 30% at 90% 110%, rgb(0 224 255 / 0.05), transparent 70%);
+  background-attachment: fixed;
+  min-height: 100dvh;
+}
