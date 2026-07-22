@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Builds
+.next/
+out/
+dist/
+build/
+.turbo/
+
+# Environment
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs & caches
+*.log
+npm-debug.log*
+.eslintcache
+*.tsbuildinfo
+
+# Testing
+coverage/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Prisma
+apps/api/prisma/*.db
+
+# Uploads (local dev storage fallback)
+apps/api/storage/
+
+# Prisma generated client
+apps/api/src/generated/
+
+# Local devstack database cluster
+tools/devstack/.data/

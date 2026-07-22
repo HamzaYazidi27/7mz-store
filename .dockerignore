@@ -1,0 +1,12 @@
+**/node_modules
+**/.next
+**/dist
+**/.turbo
+.git
+tools/devstack/.data
+docs/screenshots
+**/.env
+**/.env.local
+**/.env.production
+coverage
+*.log
