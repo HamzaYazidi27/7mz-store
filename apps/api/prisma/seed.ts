@@ -468,6 +468,16 @@ async function hash(v: string): Promise<string> {
 
 async function main(): Promise<void> {
   console.log("🌱 Seeding 7MZ Store ...");
+
+  // Idempotency guard: never wipe a populated database. This lets the seed run
+  // safely on every container boot (see docker-entrypoint.sh) — it populates a
+  // fresh database once, then no-ops. Set SEED_FORCE=true to reseed anyway.
+  const existingProducts = await prisma.product.count();
+  if (existingProducts > 0 && process.env.SEED_FORCE !== "true") {
+    console.log(`  ↩ database already has ${existingProducts} products — skipping seed`);
+    return;
+  }
+
   await clean();
   console.log("  ✓ cleared existing data");
 
