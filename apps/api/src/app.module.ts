@@ -21,6 +21,16 @@ import { UsersModule } from "./users/users.module";
 import { CatalogModule } from "./catalog/catalog.module";
 import { HomeModule } from "./home/home.module";
 import { NotificationsModule } from "./notifications/notifications.module";
+import { StorageModule } from "./storage/storage.module";
+import { DeliveryModule } from "./delivery/delivery.module";
+import { CouponsModule } from "./coupons/coupons.module";
+import { WalletModule } from "./wallet/wallet.module";
+import { PaymentsModule } from "./payments/payments.module";
+import { OrdersModule } from "./orders/orders.module";
+import { ReferralsModule } from "./referrals/referrals.module";
+import { MissionsModule } from "./missions/missions.module";
+import { RewardsModule } from "./rewards/rewards.module";
+import { SupportModule } from "./support/support.module";
 import { HealthModule } from "./health/health.module";
 
 @Module({
@@ -71,11 +81,21 @@ import { HealthModule } from "./health/health.module";
     RedisModule,
     CryptoModule,
     AuditModule,
+    StorageModule,
+    DeliveryModule,
+    CouponsModule,
+    WalletModule,
+    PaymentsModule,
     AuthModule,
     UsersModule,
     CatalogModule,
     HomeModule,
+    OrdersModule,
+    ReferralsModule,
+    MissionsModule,
+    RewardsModule,
     NotificationsModule,
+    SupportModule,
     HealthModule,
   ],
   providers: [

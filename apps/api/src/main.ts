@@ -7,7 +7,9 @@ import helmet from "helmet";
 import { AppModule } from "./app.module";
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+  // rawBody: true preserves the raw request buffer so payment webhook adapters
+  // can verify provider signatures (Stripe, Coinbase, crypto HMAC, etc.).
+  const app = await NestFactory.create(AppModule, { bufferLogs: true, rawBody: true });
 
   const logger = app.get(Logger);
   app.useLogger(logger);
