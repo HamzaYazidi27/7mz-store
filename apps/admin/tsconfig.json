@@ -1,0 +1,6 @@
+{
+  "extends": "@7mz/typescript-config/nextjs.json",
+  "compilerOptions": { "paths": { "@/*": ["./src/*"] } },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

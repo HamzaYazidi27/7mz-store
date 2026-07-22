@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@import "@7mz/ui/styles/theme.css";
+@source "../../../../packages/ui/src";
+body { background-color: var(--color-bg); color: var(--color-fg); min-height: 100dvh; }
